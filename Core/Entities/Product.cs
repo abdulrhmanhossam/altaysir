@@ -3,9 +3,9 @@
 public class Product : BaseEntity
 {
     public string Name { get; set; } = default!;
-    public string? Description { get; set; }
+    public string Description { get; set; } = default!;
     public decimal Price { get; set; }
-    public string? PictureUrl { get; set; }
+    public string PictureUrl { get; set; } = default!;
     public ProductType ProductType { get; set; } = new ProductType();
     public int ProductTypeId { get; set; }
     public ProductBrand ProductBrand { get; set; } = new ProductBrand();
