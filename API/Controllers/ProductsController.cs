@@ -1,4 +1,5 @@
-﻿using Core.Interfaces;
+﻿using Core.Entities;
+using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -15,14 +16,14 @@ public class ProductsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetProducts()
+    public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts()
     {
         var products = await _productRepository.GetProductsAsync();
         return Ok(products);
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetProduct(int id)
+    public async Task<ActionResult<Product>> GetProduct(int id)
     {
         var product = await _productRepository.GetProductByIdAsync(id);
         if (product == null)
@@ -30,5 +31,17 @@ public class ProductsController : ControllerBase
             return NotFound();
         }
         return Ok(product);
+    }
+
+    [HttpGet("brands")]
+    public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductBrands()
+    {
+        return Ok(await _productRepository.GetProductBrandsAsync());
+    }
+
+    [HttpGet("types")]
+    public async Task<ActionResult<IReadOnlyList<ProductType>>> GetProductTypes()
+    {
+        return Ok(await _productRepository.GetProductTypesAsync());
     }
 }
