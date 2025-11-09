@@ -38,6 +38,7 @@ using (var scope = app.Services.CreateScope())
     {
         var context = services.GetRequiredService<AltaysirContext>();
         await context.Database.MigrateAsync();
+        //await AltaysirContextSeed.SeedAsync(context, loggerFactory);
     }
     catch (Exception ex)
     {
