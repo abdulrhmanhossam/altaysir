@@ -1,5 +1,6 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
+using Core.Specifications;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -24,7 +25,8 @@ public class ProductsController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts()
     {
-        var products = await _productRepository.ListAllAsync();
+        var spec = new ProductsWithTypesAndBrandsSpecification();
+        var products = await _productRepository.ListAsync(spec);
         return Ok(products);
     }
 
